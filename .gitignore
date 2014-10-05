@@ -5,4 +5,3 @@ bin/busser
 bin/kitchen
 bin/thor
 bin/safe_yaml
-.kitchen.yml

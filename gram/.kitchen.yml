@@ -1,0 +1,52 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[gram::dyndb]
+      - recipe[gram::deploy]
+    attributes:
+      deploy:
+        someappname:
+          scm:
+            repository: git@github.com:Pandra/dirtygram-server.git
+            scm_type: git
+            ssh_key: |
+              -----BEGIN RSA PRIVATE KEY-----
+              MIIEowIBAAKCAQEAxB/gEk9Ep57mv8SWnvkp1w7K7qhQmWTBiVra9Sp4eb+YNL++
+              3CohVLzhoiM9CN877M4p5eknwoFicasczKlnbDEsbZ24+ZXAAUW08NicyJemUxr0
+              /YJAlVcZt1F5S9dP9K4xPePTo6XXnnHkhcXECM8uAEQCcSDa/+7uWIvzOxUtN9nh
+              cYoNXuYCmRxioBnoWcV89G4LjUUgfaLbe4VvqnkC33H5Cub6CQ7QQpaD0v4B8SmJ
+              JUGUABSuXQ8LVuXaYzUlIkDrKLpqGi5Hs4R8vj5kJPbXtksuE+4Xcy7ryzCtvdaY
+              8XgbXzODwZIIe2b1vHV6Rh5GZ9xAy1DuAhavZwIDAQABAoIBAQCr0yVTxUDn/e45
+              qnkvlCoU8S/XgX0DtuNcfE4Cpw/f0nz+EdOcPgjvnX+stmS9xh5RLJpGhEvCO+rM
+              nVZg9DXY8wfyjVFG0Ozj8HdC3vQVRc+BVce35orAjAvKsMWtLVkujAI2L8j2wdAz
+              T6MflBFYinLJ5sug42EbAvCsgQg7BJreaZtgZx8VXvuYdoTNjf/0HMKgE5eYKqGP
+              GgyYmBIytE04KXrlgmwotCFHYvWNHtmS0cXcFjzdmDyPjYOPthJ4N1Ngu48/XQrq
+              rGzELYMpxuc0OI79der8k+Os1fHDfaylkFmHlhyioepOW7xCRfX5o75ae10LEY6u
+              PUZOLR05AoGBAPhwhlBF+AZwfalMXKbWzOkSokwoDkFvhJa+M+eLZ1a7ePQdWPIe
+              Wf48LITE3gv+f6Sgj9KY2HVB1pSeypRcYvFxYmV44TlIzD/Xy142MnE+CL4PioBj
+              T+BXVKRgC3qA1NBoSb99I1TmJAQ7LPajwR5+KaBcImdnD4/JqVBtNxsTAoGBAMoX
+              yfGwrO/kNeHI5yRakU9Kpc1j0HkyryxKxEdVWOqS78Zv/mnQ5+n5aAbJPChptmtl
+              iDXDHOVaR7QmeUbHrQndn0fBhsCY70GVZS8ahDYw0t9wTdopdqdP+9hu/fFl044r
+              pfAHVUcy1J0SKuZhOwnEAJlNo7ez+Hi9XevVJHDdAoGAOJIO03qLNpQo2QMNWeQx
+              dqUKlcLNNDM7gsO+t+uzVTmNGjEQjtlAbravAHB/i0WhNRBmj3LEXzblsKPTxyKe
+              WRITcL2ss0mTULpHkaVPqR+SCA0r4X47sv7PxDomgveQ/f+xQ0wwXmWlL911qJez
+              IslhmyU/pEIAdiJaTnkAAkcCgYASIopbpugN6uOu7DFZwMrTW7Z/NNrLVXIEvnzY
+              jd8Zxa/AleI1qqp1A42DNmGwmrPk9UqA0I5yQmS21NEDOf3cKcgWT1aBR/gIYZif
+              3nhIyJ7TsCc8UYY1Q2ctJ+Cf3exbEK2mWXIcnoIXyj6RR95dZPpMx3vOi1bbttqL
+              xCet/QKBgHSoaLUwrN6WYJWNMO3ZHY8g26db+gAwvh6Yf9uIdoTdImaYg2VgnZDG
+              pzJKjW4rOMZRPWF06TwJS+acETvyvRN5MEo52hoqtG1scLAlSxMJj0ayyGseYJpL
+              6DhIrLZFkHATP7N1xiBSyy5x18BqoYRDQgrVgYJvjh8br2Vc0KQO
+              -----END RSA PRIVATE KEY-----
+          domains:
+            - test.dirtygram.pandra.ru
+            - test.dirtygram.sa.pandra.ru
