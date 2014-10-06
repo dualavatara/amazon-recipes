@@ -2,6 +2,7 @@ package 'git'
 package 'nginx'
 package 'php5'
 package 'php5-fpm'
+package 'php5-curl'
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
@@ -24,7 +25,7 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config'].each do |dir|
+  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config', 'shared/vendor'].each do |dir|
     directory "/home/#{application}/#{dir}" do
       owner application
       recursive true
@@ -48,13 +49,14 @@ node[:deploy].each do |application, deploy|
     repo deploy[:scm][:repository]
     user application
     migrate false
-    purge_before_symlink ['tmp', 'logs', 'sessions', 'config']
+    purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
     # create_dirs_before_symlink ['tmp', 'logs', 'sessions', 'config']
     create_dirs_before_symlink([])
     symlinks  "tmp"   => "tmp",
         "logs"   => "logs",
         "sessions" => "sessions",
-        "config" => "config"
+        "config" => "config",
+        "vendor" => "vendor"
 
     enable_submodules true
     shallow_clone true
@@ -63,6 +65,22 @@ node[:deploy].each do |application, deploy|
     action :deploy # or :rollback
     scm_provider Chef::Provider::Git # is the default, for svn: Chef::Provider::Subversion
     ssh_wrapper "/home/#{application}/wrap-ssh4git.sh"
+
+    before_restart do #run composer update
+
+      old_config application do
+        domain deploy[:domains].first
+      end
+
+      bash 'composer update' do
+        user application
+        group application
+        cwd "/home/#{application}/current"
+        code <<-EOS
+          private/composer.phar install
+        EOS
+      end
+    end
   end
 
   template "/etc/nginx/sites-available/#{application}" do
