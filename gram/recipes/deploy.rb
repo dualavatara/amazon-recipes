@@ -107,6 +107,7 @@ node[:deploy].each do |application, deploy|
     owner 'root'
     group 'root'
     variables({
+                  :homedir => "/home/#{application}",
                   :rootpath => "/home/#{application}/current",
                   :logspath => "/home/#{application}/shared/logs",
                   :tmppath => "/home/#{application}/shared/tmp",
