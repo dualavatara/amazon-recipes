@@ -47,6 +47,7 @@ node[:deploy].each do |application, deploy|
 
   deploy "/home/#{application}" do
     repo deploy[:scm][:repository]
+    revision deploy[:scm][:revision]
     user application
     migrate false
     purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
