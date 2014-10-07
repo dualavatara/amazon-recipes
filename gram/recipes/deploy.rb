@@ -45,7 +45,7 @@ node[:deploy].each do |application, deploy|
     mode '0700'
   end
 
-  deploy "/home/#{application}" do
+  deploy_revision "/home/#{application}" do
     repo deploy[:scm][:repository]
     revision deploy[:scm][:revision]
     user application
