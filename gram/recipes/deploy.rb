@@ -60,7 +60,7 @@ node[:deploy].each do |application, deploy|
         "vendor" => "vendor"
 
     enable_submodules true
-    shallow_clone true
+    shallow_clone false
     keep_releases 5
     symlink_before_migrate({})
     action :deploy # or :rollback

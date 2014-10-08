@@ -19,6 +19,7 @@ suites:
           scm:
             repository: git@github.com:Pandra/dirtygram-server.git
             scm_type: git
+            revision: develop
             ssh_key: |
               -----BEGIN RSA PRIVATE KEY-----
               MIIEowIBAAKCAQEAxB/gEk9Ep57mv8SWnvkp1w7K7qhQmWTBiVra9Sp4eb+YNL++

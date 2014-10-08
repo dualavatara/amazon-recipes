@@ -2,6 +2,7 @@ package 'default-jre'
 
 remote_file "#{Chef::Config[:file_cache_path]}/dynamodb_local.tar.gz" do
   source "#{node[:dynamodb][:url]}"
+  not_if {File.exists?("#{Chef::Config[:file_cache_path]}/dynamodb_local.tar.gz")}
 end
 
 bash 'extract tar' do
