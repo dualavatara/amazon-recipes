@@ -12,6 +12,7 @@ define :old_config do
                   :dbname => application,
                   :deploy_path => "/home/#{application}/current",
                   :deploy_host => "http://#{domain}",
+                  :deploy_domain => "#{domain}",
                   :fb_app_id => node[:facebook][:app_id],
                   :fb_app_secret => node[:facebook][:app_secret]
               })
