@@ -12,7 +12,8 @@ define :old_config do
                   :dbname => application,
                   :deploy_path => "/home/#{application}/current",
                   :deploy_host => "http://#{domain}",
-                  :deploy_domain => "#{domain}",
+                  :cdn_bucket => "cdn.#{domain}",
+                  :cdn_url => "http://cdn.#{domain}.s3-eu-west-1.amazonaws.com/",
                   :fb_app_id => node[:facebook][:app_id],
                   :fb_app_secret => node[:facebook][:app_secret]
               })
