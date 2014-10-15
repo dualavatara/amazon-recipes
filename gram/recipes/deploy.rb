@@ -25,7 +25,7 @@ node[:deploy].each do |application, deploy|
     recursive true
   end
 
-  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config', 'shared/vendor', 'shared/img'].each do |dir|
+  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config', 'shared/vendor'].each do |dir|
     directory "/home/#{application}/#{dir}" do
       owner application
       recursive true
@@ -50,15 +50,14 @@ node[:deploy].each do |application, deploy|
     revision deploy[:scm][:revision]
     user application
     migrate false
-    purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor', 'src/static/img']
+    purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
     # create_dirs_before_symlink ['tmp', 'logs', 'sessions', 'config']
     create_dirs_before_symlink([])
     symlinks  "tmp"   => "tmp",
         "logs"   => "logs",
         "sessions" => "sessions",
         "config" => "config",
-        "vendor" => "vendor",
-        "img" => "src/static/img"
+        "vendor" => "vendor"
 
     enable_submodules true
     shallow_clone false
