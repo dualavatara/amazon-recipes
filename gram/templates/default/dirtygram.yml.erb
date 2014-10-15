@@ -1,0 +1,23 @@
+S3:
+    region: eu-west-1
+    bucket: <%= @cdn_bucket %>
+SES:
+    region: eu-west-1
+DynamoDB:
+    region: eu-west-1
+    prefix: dg_
+SNS:
+    region: eu-west-1
+CDN:
+    url: <%= @cdn_url %>
+SMS:
+    developers:
+        - 79651885576
+        - 79037438056
+        - 79037438050
+    code: 555555
+    user: ivanivanov
+    password: qwerty
+Facebook:
+    app_id: <%= @fb_app_id %>
+    secret: <%= @fb_app_secret %>

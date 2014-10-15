@@ -68,11 +68,6 @@ node[:deploy].each do |application, deploy|
     ssh_wrapper "/home/#{application}/wrap-ssh4git.sh"
 
     before_restart do #run composer update
-
-      old_config application do
-        domain deploy[:domains].first
-      end
-
       bash 'composer update' do
         user application
         group application
@@ -82,6 +77,8 @@ node[:deploy].each do |application, deploy|
         EOS
       end
     end
+    notifies :restart, "service[nginx]", :delayed
+    notifies :restart, "service[php5-fpm]", :delayed
   end
 
   template "/etc/nginx/sites-available/#{application}" do

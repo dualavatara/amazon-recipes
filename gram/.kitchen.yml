@@ -13,6 +13,7 @@ suites:
     run_list:
 #      - recipe[gram::dyndb]
       - recipe[gram::deploy]
+      - recipe[gram::config]
     attributes:
       deploy:
         someappname:
