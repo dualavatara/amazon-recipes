@@ -13,8 +13,12 @@ suites:
     run_list:
 #      - recipe[gram::dyndb]
       - recipe[gram::deploy]
-      - recipe[gram::config]
+#      - recipe[gram::config]
     attributes:
+      opsworks:
+        instance:
+          layers:
+            - web_fe
       deploy:
         someappname:
           scm:

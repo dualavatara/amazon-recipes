@@ -1,21 +1,8 @@
-package 'git'
-package 'nginx'
-package 'php5'
-package 'php5-fpm'
-package 'php5-curl'
+define :gram_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key => nil, :application => nil do
+  params[:application] ||= params[:name]
 
-service 'nginx' do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable ]
-end
+  application = params[:application]
 
-service 'php5-fpm' do
-  supports :status => true, :restart => true, :reload => true
-  provider Chef::Provider::Service::Upstart
-  action [ :enable ]
-end
-
-node[:deploy].each do |application, deploy|
   user application do
     home "/home/#{application}"
   end
@@ -34,7 +21,7 @@ node[:deploy].each do |application, deploy|
 
   file "/home/#{application}/.ssh/id_rsa" do
     owner application
-    content deploy[:scm][:ssh_key]
+    content params[:ssh_key]
     mode '0600'
     action :create
   end
@@ -46,20 +33,19 @@ node[:deploy].each do |application, deploy|
   end
 
   deploy_branch "/home/#{application}" do
-    repo deploy[:scm][:repository]
+    repo params[:repo]
 
-    revision "develop"
+    revision params[:revision]
 
     user application
     migrate false
     purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
-    # create_dirs_before_symlink ['tmp', 'logs', 'sessions', 'config']
     create_dirs_before_symlink([])
     symlinks  "tmp"   => "tmp",
-        "logs"   => "logs",
-        "sessions" => "sessions",
-        "config" => "config",
-        "vendor" => "vendor"
+              "logs"   => "logs",
+              "sessions" => "sessions",
+              "config" => "config",
+              "vendor" => "vendor"
 
     enable_submodules true
     shallow_clone false
@@ -93,7 +79,7 @@ node[:deploy].each do |application, deploy|
                   :rootpath => "/home/#{application}/current",
                   :logspath => "/home/#{application}/shared/logs",
                   :fpmport => node[:fpm][:port],
-                  :domain => "test.#{deploy[:domains].first}",
+                  :domain => "#{params[:domain]}",
               })
   end
 
