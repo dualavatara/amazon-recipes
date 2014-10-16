@@ -106,4 +106,21 @@ define :gram_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key =>
               })
     notifies :restart, "service[php5-fpm]", :delayed
   end
+
+  template "/home/#{application}/shared/config/dirtygram.yml" do
+    source "dirtygram.yml.erb"
+    mode '0644'
+    owner application
+    variables({
+                  :port => node[:dynamodb][:port],
+                  :dbname => application,
+                  :cdn_bucket => "cdn.#{params[:domain]}",
+                  :cdn_url => "http://cdn.#{params[:domain]}.s3-eu-west-1.amazonaws.com/",
+                  :fb_app_id => node[:facebook][:app_id],
+                  :fb_app_secret => node[:facebook][:app_secret]
+              })
+    not_if {File.exists?("/home/#{application}/shared/config/dirtygram.yml")}
+    notifies :restart, "service[nginx]", :delayed
+    notifies :restart, "service[php5-fpm]", :delayed
+  end
 end
