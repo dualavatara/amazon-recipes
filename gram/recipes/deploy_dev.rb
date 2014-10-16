@@ -47,7 +47,9 @@ node[:deploy].each do |application, deploy|
 
   deploy_branch "/home/#{application}" do
     repo deploy[:scm][:repository]
-    revision deploy[:scm][:revision]
+
+    revision "develop"
+
     user application
     migrate false
     purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
@@ -77,6 +79,7 @@ node[:deploy].each do |application, deploy|
         EOS
       end
     end
+
     notifies :restart, "service[nginx]", :delayed
     notifies :restart, "service[php5-fpm]", :delayed
   end
@@ -90,7 +93,7 @@ node[:deploy].each do |application, deploy|
                   :rootpath => "/home/#{application}/current",
                   :logspath => "/home/#{application}/shared/logs",
                   :fpmport => node[:fpm][:port],
-                  :domain => deploy[:domains].first,
+                  :domain => "test.#{deploy[:domains].first}",
               })
   end
 
