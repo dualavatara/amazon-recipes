@@ -3,6 +3,7 @@ package 'nginx'
 package 'php5'
 package 'php5-fpm'
 package 'php5-curl'
+package 'php5-gd'
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
