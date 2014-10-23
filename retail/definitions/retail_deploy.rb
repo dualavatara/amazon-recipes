@@ -56,7 +56,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
     ssh_wrapper "/home/#{application}/wrap-ssh4git.sh"
 
     before_restart do #run composer update
-      bash 'composer update' do
+      bash 'composer install' do
         user application
         group application
         cwd "/home/#{application}/current"

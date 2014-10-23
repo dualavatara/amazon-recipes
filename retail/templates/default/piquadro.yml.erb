@@ -2,9 +2,27 @@ S3:
     region: eu-west-1
     bucket: <%= @cdn_bucket %>
 DynamoDB:
+    key: piquadro
+    secret: somesecret
     region: eu-west-1
+    base_url: http://localhost:8000
     prefix: piquadro_
 ImportYml:
     path: http://www.i-lux.ru/bitrix/catalog_export/yml_pandra.php
 CDN:
     url: <%= @cdn_url %>
+env:
+    test:
+        S3:
+            region: eu-west-1
+            bucket: <%= @cdn_bucket %>
+        DynamoDB:
+            key: piquadro
+            secret: somesecret
+            region: eu-west-1
+            base_url: http://localhost:8000
+            prefix: test_
+        ImportYml:
+            path: http://www.i-lux.ru/bitrix/catalog_export/yml_pandra.php
+        CDN:
+            url: <%= @cdn_url %>
