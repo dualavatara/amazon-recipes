@@ -12,7 +12,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
     recursive true
   end
 
-  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config', 'shared/vendor'].each do |dir|
+  ['shared', 'shared/tmp', 'shared/logs', 'shared/sessions', 'shared/config'].each do |dir|
     directory "/home/#{application}/#{dir}" do
       owner application
       recursive true
@@ -39,13 +39,12 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
 
     user application
     migrate false
-    purge_before_symlink ['tmp', 'logs', 'sessions', 'config', 'vendor']
+    purge_before_symlink ['tmp', 'logs', 'sessions', 'config']
     create_dirs_before_symlink([])
     symlinks  "tmp"   => "tmp",
               "logs"   => "logs",
               "sessions" => "sessions",
-              "config" => "config",
-              "vendor" => "vendor"
+              "config" => "config"
 
     enable_submodules true
     shallow_clone false
