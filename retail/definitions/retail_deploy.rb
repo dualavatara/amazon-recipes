@@ -48,7 +48,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
 
     enable_submodules true
     shallow_clone false
-    keep_releases 5
+    keep_releases 1
     symlink_before_migrate({})
     action :deploy # or :rollback
     scm_provider Chef::Provider::Git # is the default, for svn: Chef::Provider::Subversion
