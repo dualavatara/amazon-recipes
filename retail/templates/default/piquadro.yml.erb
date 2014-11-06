@@ -1,6 +1,11 @@
 S3:
     region: eu-west-1
     bucket: <%= @cdn_bucket %>
+SES:
+    region: eu-west-1
+#    mailfrom: from@domain.ru
+#    mailto:
+#        - to@otherdomain.ru
 DynamoDB:
     key: piquadro
     secret: somesecret
@@ -13,6 +18,11 @@ CDN:
     url: <%= @cdn_url %>
 env:
     test:
+        SES:
+            region: eu-west-1
+#            mailfrom: from@domain.ru
+#            mailto:
+#                - to@otherdomain.ru
         S3:
             region: eu-west-1
             bucket: <%= @cdn_bucket %>

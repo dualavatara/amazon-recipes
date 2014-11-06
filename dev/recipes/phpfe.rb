@@ -3,6 +3,7 @@ package 'nginx'
 package 'php5'
 package 'php5-fpm'
 package 'php5-curl'
+package 'php5-gd'
 
 service 'nginx' do
   supports :status => true, :restart => true, :reload => true
@@ -29,11 +30,16 @@ node[:apps].each do |name, params|
     end
   end
 
-  git "#{apppath}/app" do
-    repository params[:git][:repo]
-    revision params[:git][:branch]
-    action :checkout
+  bash "clone project" do
     user node[:user]
+    cwd "#{apppath}"
+    code <<-EOH
+      git clone #{params[:git][:repo]} app
+      cd app
+      git checkout #{params[:git][:branch]}
+      ln -s ../config
+    EOH
+    not_if {Dir.exists?("#{apppath}/app")}
   end
 
   template "#{apppath}/config/#{name}.nginx.conf" do
