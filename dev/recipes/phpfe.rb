@@ -62,7 +62,8 @@ node[:apps].each do |name, params|
     group node[:user]
     variables({
                   :homedir => "#{apppath}",
-                  :rootpath => "#{apppath}/app",
+                  :phppath => "#{apppath}/app",
+                  :adminpath => "#{apppath}/admin",
                   :logspath => "#{apppath}/logs",
                   :tmppath => "#{apppath}/tmp",
                   :sessionspath => "#{apppath}/sessions",
