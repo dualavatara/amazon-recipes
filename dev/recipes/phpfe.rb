@@ -23,7 +23,7 @@ node[:apps].each do |name, params|
   apppath = "/home/#{node[:user]}/Develop/#{name}"
   domains << params[:domain]
 
-  ['app', 'tmp', 'logs', 'sessions', 'config'].each do |dir|
+  ['tmp', 'logs', 'sessions', 'config'].each do |dir|
     directory "#{apppath}/#{dir}" do
       owner node[:user]
       recursive true
