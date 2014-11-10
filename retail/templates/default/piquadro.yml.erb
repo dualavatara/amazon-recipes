@@ -6,6 +6,7 @@ SES:
 #    mailfrom: from@domain.ru
 #    mailto:
 #        - to@otherdomain.ru
+#    admin_url: http://<%= @domain %>/admin/
 DynamoDB:
     key: piquadro
     secret: somesecret
@@ -23,6 +24,7 @@ env:
 #            mailfrom: from@domain.ru
 #            mailto:
 #                - to@otherdomain.ru
+#            admin_url: http://<%= @domain %>/admin/
         S3:
             region: eu-west-1
             bucket: <%= @cdn_bucket %>
