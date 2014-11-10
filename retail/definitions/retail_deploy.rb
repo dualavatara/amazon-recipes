@@ -77,6 +77,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
     variables({
                   :rootpath => "/home/#{application}/current",
                   :logspath => "/home/#{application}/shared/logs",
+                  :adminpath => "/home/#{application}/admin_frontend",
                   :fpmport => node[:fpm][:port],
                   :domain => "#{params[:domain]}",
               })

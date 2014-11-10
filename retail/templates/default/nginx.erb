@@ -10,19 +10,12 @@ index index.php;
 access_log      <%= @logspath %>/access.log;
 error_log       <%= @logspath %>/error.log info;
 
-location / { try_files $uri  $uri/      @fallback; }
+location / { try_files index.php @fallback; }
 
 location @fallback {
 fastcgi_pass localhost:<%= @fpmport %>;
 include fastcgi_params;
 fastcgi_param SCRIPT_FILENAME $document_root/index.php;
-}
-
-# static
-location ~ ".*\.(ico|png|swf|gif|jpg|xml|css|html|js|map|coffee|less)" {
-root <%= @rootpath %>;
-access_log off;
-expires 1d;
 }
 
 # php
@@ -32,4 +25,18 @@ fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 include fastcgi_params;
 fastcgi_index index.php;
 }
+
+    location /admin/ {
+        alias <%= @adminpath %>/;
+
+        location = /admin/ {
+            index index.html;
+            allow all;
+        }
+
+        location ~* ^.+\.(html|js|css|map|coffee|less|jpg|png|gif|woff|ttf|svg|eot)$ {
+            allow all;
+        }
+        deny all;
+    }
 }
