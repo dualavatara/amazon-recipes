@@ -59,7 +59,7 @@ node[:apps].each do |name, params|
     variables({
                   :rootpath => "#{apppath}/app",
                   :logspath => "#{apppath}/logs",
-                  :fpmport => node[:fpm][:port],
+                  :fpmport => params[:fpmport],
                   :domain => "#{params[:domain]}",
                   :adminpath => "#{apppath}/admin_frontend",
               })
@@ -77,7 +77,7 @@ node[:apps].each do |name, params|
                   :logspath => "#{apppath}/logs",
                   :tmppath => "#{apppath}/tmp",
                   :sessionspath => "#{apppath}/sessions",
-                  :fpmport => node[:fpm][:port],
+                  :fpmport => params[:fpmport],
                   :fpmuser => node[:user],
                   :fpmgroup => node[:user],
                   :appname => name,
