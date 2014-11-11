@@ -8,6 +8,13 @@
                 "repo" : "git@github.com:Pandra/retail-server.git",
                 "branch": "master"
             }
+        },
+        "dirtygram": {
+            "domain": "dirtygram.local",
+            "git" : {
+                "repo" : "git@github.com:Pandra/dirtygram-server.git",
+                "branch": "master"
+            }
         }
     }
 }

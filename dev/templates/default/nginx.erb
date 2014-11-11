@@ -3,7 +3,7 @@ server {
     #listen   [::]:80 default ipv6only=on; ## listen for ipv6
     server_name <%= @domain %>;
 
-    root <%= @phppath %>;
+    root <%= @rootpath %>;
     index index.php;
 
     # Make site accessible from http://localhost/
@@ -26,18 +26,18 @@ server {
         fastcgi_index index.php;
     }
 
-#    location /admin/ {
-#        alias <%= @adminpath %>/;
-#
-#        location = /admin/ {
-#            index index.html;
-#            allow all;
-#        }
-#
-#        location ~* ^.+\.(html|js|css|map|coffee|less|jpg|png|gif|woff|ttf|svg|eot)$ {
-#            allow all;
-#        }
-#        deny all;
-#    }
+    location /admin/ {
+        alias <%= @adminpath %>/;
+
+        location = /admin/ {
+            index index.html;
+            allow all;
+        }
+
+        location ~* ^.+\.(html|js|css|map|coffee|less|jpg|png|gif|woff|ttf|svg|eot)$ {
+            allow all;
+        }
+        deny all;
+    }
 
 }

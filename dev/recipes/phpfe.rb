@@ -23,10 +23,19 @@ node[:apps].each do |name, params|
   apppath = "/home/#{node[:user]}/Develop/#{name}"
   domains << params[:domain]
 
+  directory "#{apppath}" do
+    user node[:user]
+    owner node[:user]
+    recursive true
+    not_if {Dir.exists?("#{apppath}")}
+  end
+
   ['tmp', 'logs', 'sessions', 'config'].each do |dir|
     directory "#{apppath}/#{dir}" do
+      user node[:user]
       owner node[:user]
       recursive true
+      not_if {Dir.exists?("#{apppath}/#{dir}")}
     end
   end
 
@@ -52,6 +61,7 @@ node[:apps].each do |name, params|
                   :logspath => "#{apppath}/logs",
                   :fpmport => node[:fpm][:port],
                   :domain => "#{params[:domain]}",
+                  :adminpath => "#{apppath}/admin_frontend",
               })
   end
 
