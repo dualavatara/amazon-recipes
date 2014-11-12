@@ -108,17 +108,14 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
   end
 
   template "/home/#{application}/shared/config/#{application}.yml" do
-    source "#{application}.yml.erb"
+    source "config.yml.erb"
     mode '0644'
     owner application
     variables({
-                  :port => node[:dynamodb][:port],
                   :dbname => application,
                   :domain => params[:domain],
                   :cdn_bucket => "cdn.#{params[:domain]}",
                   :cdn_url => "http://cdn.#{params[:domain]}.s3-eu-west-1.amazonaws.com/",
-                  :fb_app_id => node[:facebook][:app_id],
-                  :fb_app_secret => node[:facebook][:app_secret]
               })
     not_if {File.exists?("/home/#{application}/shared/config/#{application}.yml")}
     notifies :restart, "service[nginx]", :delayed
