@@ -107,7 +107,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
     notifies :restart, "service[php5-fpm]", :delayed
   end
 
-  template "/home/#{application}/shared/config/#{application}.yml" do
+  template "/home/#{application}/shared/config/config.yml" do
     source "config.yml.erb"
     mode '0644'
     owner application
