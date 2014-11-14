@@ -1,22 +1,36 @@
 {
-    "run_list": [ "recipe[retail::dyndb]", "recipe[dev::phpfe]" ],
+    "run_list": [ "recipe[retail::dyndb]", "recipe[dev::phpfe]", "recipe[dev::rubyfe]", "recipe[dev::hosts]" ],
     "user" : "dualavatara",
     "apps" : {
-        "piquadro": {
-            "domain": "piquadro.local",
-            "git" : {
-                "repo" : "git@github.com:Pandra/retail-server.git",
-                "branch": "master"
+        "php" : {
+            "piquadro": {
+                "domain": "piquadro.local",
+                "git": {
+                    "repo": "git@github.com:Pandra/retail-server.git",
+                    "branch": "master"
+                }
             },
-            "fpmport" : 10000
+            "dirtygram": {
+                "domain": "dirtygram.local",
+                "git": {
+                    "repo": "git@github.com:Pandra/dirtygram-server.git",
+                    "branch": "master"
+                }
+            }
         },
-        "dirtygram": {
-            "domain": "dirtygram.local",
-            "git" : {
-                "repo" : "git@github.com:Pandra/dirtygram-server.git",
-                "branch": "master"
-            },
-            "fpmport" : 10001
+        "ruby" : {
+            "retail": {
+                "domain": "retail.local",
+                "git": {
+                    "repo": "git@github.com:kzhukov/retail-server.git",
+                    "branch": "master"
+                }
+            }
         }
-    }
+    },
+    "hosts" : [
+        "piquadro.local",
+        "dirtygram.local",
+        "retail.local"
+    ]
 }
