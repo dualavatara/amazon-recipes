@@ -117,7 +117,7 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
                   :cdn_bucket => "cdn.#{params[:domain]}",
                   :cdn_url => "http://cdn.#{params[:domain]}.s3-eu-west-1.amazonaws.com/",
               })
-    not_if {File.exists?("/home/#{application}/shared/config/#{application}.yml")}
+    not_if {File.exists?("/home/#{application}/shared/config/config.yml")}
     notifies :restart, "service[nginx]", :delayed
     notifies :restart, "service[php5-fpm]", :delayed
   end
