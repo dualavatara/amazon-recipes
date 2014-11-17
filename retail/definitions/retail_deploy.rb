@@ -83,6 +83,16 @@ define :retail_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key 
               })
   end
 
+  template "/etc/cron.daily/#{application}" do
+    source "cron.daily.sh.erb"
+    mode '0755'
+    owner 'root'
+    group 'root'
+    variables({
+                  :apppath => "/home/#{application}/current"
+              })
+  end
+
   link "/etc/nginx/sites-enabled/#{application}" do
     to "/etc/nginx/sites-available/#{application}"
     notifies :restart, "service[nginx]", :delayed
