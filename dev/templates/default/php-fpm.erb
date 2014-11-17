@@ -21,7 +21,7 @@ php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f no-reply@pandra.ru
 php_admin_value[memory_limit] = 64M
 php_admin_value[error_log] = <%= @logspath %>/phperrors.log
 
-php_admin_value[open_basedir] = /tmp:<%= @homedir %>
+php_admin_value[open_basedir] = /home/<%= @fpmuser %>/.aws:/tmp:<%= @homedir %>
 
 php_admin_value[upload_tmp_dir] = <%= @tmppath %>
 
