@@ -19,9 +19,9 @@ node[:deploy].each do |application, deploy|
   node[:opsworks][:instance][:layers].each do | layername |
 
     gram_deploy application do
-      domain node[:layers][layername][:domain]
+      domain node[layername][:domain]
       repo deploy[:scm][:repository]
-      revision node[:layers][layername][:branch]
+      revision node[layername][:branch]
       ssh_key deploy[:scm][:ssh_key]
     end
 
