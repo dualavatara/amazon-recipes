@@ -107,8 +107,8 @@ define :gram_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key =>
     notifies :restart, "service[php5-fpm]", :delayed
   end
 
-  template "/home/#{application}/shared/config/dirtygram.yml" do
-    source "dirtygram.yml.erb"
+  template "/home/#{application}/shared/config/config.yml" do
+    source "config.yml.erb"
     mode '0644'
     owner application
     variables({
@@ -119,7 +119,7 @@ define :gram_deploy, :domain => nil, :repo => nil, :revision => nil, :ssh_key =>
                   :fb_app_id => node[:facebook][:app_id],
                   :fb_app_secret => node[:facebook][:app_secret]
               })
-    not_if {File.exists?("/home/#{application}/shared/config/dirtygram.yml")}
+    not_if {File.exists?("/home/#{application}/shared/config/config.yml")}
     notifies :restart, "service[nginx]", :delayed
     notifies :restart, "service[php5-fpm]", :delayed
   end
